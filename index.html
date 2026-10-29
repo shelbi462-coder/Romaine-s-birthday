@@ -1,0 +1,167 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>For Romaine 💗</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0; min-height: 100vh; overflow-x: hidden;
+  font-family: Georgia, serif; color: #80354d;
+  background: linear-gradient(145deg,#fff0f4,#f8d6e1,#fff7f0);
+  display: grid; place-items: center; padding: 24px;
+}
+main { width: 100%; max-width: 520px; text-align: center; }
+h1 { font-size: clamp(2rem,8vw,3.2rem); margin: 12px 0; }
+p { line-height: 1.85; }
+.small { letter-spacing: 3px; text-transform: uppercase; font-size: 11px; }
+#envelope {
+  position: relative; width: min(270px,80vw); height: 175px;
+  margin: 55px auto 30px; cursor: pointer;
+  background: #d9829e; border-radius: 8px;
+  box-shadow: 0 16px 35px #a7466530;
+}
+#envelope:before {
+  content:""; position:absolute; inset:0;
+  background:#e8a3b7;
+  clip-path:polygon(0 0,50% 58%,100% 0);
+  z-index:2; transition:transform .8s;
+  transform-origin:top;
+}
+#envelope:after {
+  content:""; position:absolute; inset:0;
+  background:#cc6f90;
+  clip-path:polygon(0 100%,50% 45%,100% 100%);
+  z-index:3;
+}
+.seal {
+  position:absolute; z-index:4; left:50%; top:52%;
+  transform:translate(-50%,-50%); font-size:36px;
+}
+#envelope.open:before { transform:rotateX(180deg); }
+#letter {
+  display:none; background:#fffaf5; padding:30px 25px;
+  border-radius:18px; box-shadow:0 15px 45px #a7466520;
+  text-align:left; animation:appear 1s ease;
+}
+#letter h2,#ending { text-align:center; }
+button {
+  border:0; border-radius:30px; padding:14px 23px;
+  background:#a83e66; color:white; font-size:15px;
+  font-family:inherit; cursor:pointer;
+  box-shadow:0 6px 18px #a7466530;
+}
+button:hover { background:#852d4e; }
+#ending { display:none; margin-top:22px; }
+.heart {
+  position:fixed; bottom:-30px; pointer-events:none;
+  animation:floatUp linear forwards; z-index:-1;
+}
+@keyframes floatUp {
+  to { transform:translateY(-115vh) rotate(25deg); opacity:0; }
+}
+@keyframes appear {
+  from { opacity:0; transform:translateY(15px); }
+  to { opacity:1; transform:translateY(0); }
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="small">A little something from Shelbi ✨</div>
+  <h1>Happy Birthday,<br>Romaine 💗</h1>
+  <p>Someone has a little message waiting just for you...</p>
+
+  <div id="envelope" role="button" tabindex="0"
+       aria-label="Open your birthday letter">
+    <div class="seal">💌</div>
+  </div>
+  <p id="hint">Tap the envelope to open your surprise ♡</p>
+
+  <section id="letter">
+    <h2>To my special Romaine 🌹</h2>
+    <p>Happy Birthday, Romaine! ❤️</p>
+    <p>
+      Today is all about celebrating you, and I wanted to make
+      you smile in a little way that feels different from an
+      ordinary birthday message.
+    </p>
+    <p>
+      I don't know if you realize just how special you are,
+      but there's something about you that makes you stand out.
+      You have a way of making someone curious to know you
+      more, and I'm happy I get to send a little sweetness
+      your way today.
+    </p>
+    <p>
+      My wish for you is that this new chapter brings you
+      genuine happiness, beautiful memories, answered prayers,
+      exciting opportunities, and people who appreciate the
+      person you are.
+    </p>
+    <p>
+      And maybe, just maybe, this little letter will give you
+      a reason to smile and wonder who's thinking about you
+      a little extra today. 🥹💕
+    </p>
+    <p>
+      Enjoy your day, birthday boy. You deserve to feel
+      appreciated, celebrated, and loved.
+    </p>
+    <p style="text-align:center">
+      With a little extra affection,<br>
+      <strong>Shelbi 💋</strong>
+    </p>
+    <div style="text-align:center">
+      <button id="reveal">One last little thing... 💗</button>
+    </div>
+    <div id="ending">
+      <h2>Guess who is wishing you extra kisses? 😘</h2>
+      <p>Me, of course! Happy Birthday again, Romaine. 💋</p>
+      <p>Maybe this is the start of a beautiful little story. ❤️</p>
+      <div style="text-align:center;font-size:30px">💗 🌹 💗</div>
+    </div>
+  </section>
+</main>
+<script>
+const envelope = document.getElementById('envelope');
+const letter = document.getElementById('letter');
+function openLetter() {
+  if (letter.style.display === 'block') return;
+  envelope.classList.add('open');
+  document.getElementById('hint').textContent =
+    'A little love, just for you 💕';
+  setTimeout(() => {
+    letter.style.display = 'block';
+    letter.scrollIntoView({behavior:'smooth',block:'start'});
+  }, 450);
+}
+envelope.addEventListener('click', openLetter);
+envelope.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault(); openLetter();
+  }
+});
+document.getElementById('reveal').addEventListener('click', () => {
+  document.getElementById('ending').style.display = 'block';
+  document.getElementById('reveal').style.display = 'none';
+  document.getElementById('ending').scrollIntoView({
+    behavior:'smooth',block:'center'
+  });
+});
+function heart() {
+  const h = document.createElement('span');
+  h.className = 'heart';
+  h.textContent = ['💕','💗','♡','💖','🌸'][Math.floor(Math.random()*5)];
+  h.style.left = Math.random()*100+'vw';
+  h.style.fontSize = (14+Math.random()*18)+'px';
+  h.style.animationDuration = (5+Math.random()*5)+'s';
+  document.body.appendChild(h);
+  setTimeout(() => h.remove(),10000);
+}
+setInterval(heart,500);
+</script>
+</body>
+</html>
